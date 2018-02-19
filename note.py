@@ -45,14 +45,26 @@ class Note(Tone):
     def octave_number(self):
         return self._octave_number
 
+    @classmethod
+    def for_name_and_pitch(cls, name, half_steps_from_c0):
+        accidental = None
+        natural_note = cls(name)
+        if natural_note.half_steps_from_c0() == half_steps_from_c0:
+            return natural_note
+        if natural_note.half_steps_from_c0() < half_steps_from_c0:
+            accidental = Accidental('sharp')
+        elif natural_note.half_steps_from_c0() > half_steps_from_c0:
+            accidental = Accidental('flat')
+        return cls(name, accidental)
+
     def _set_frequency(self):
         self._frequency = C0_FREQUENCY * self._frequency_multiplier()
         return
 
     def _frequency_multiplier(self):
-        return 2 ** self._half_steps_from_c0()
+        return 2 ** (self.half_steps_from_c0() / HALF_STEPS_PER_OCTAVE)
 
-    def _half_steps_from_c0(self):
+    def half_steps_from_c0(self):
         return self._octave_half_steps() + self._half_steps_from_c() + self._accidental.half_step_value()
 
     def _octave_half_steps(self):

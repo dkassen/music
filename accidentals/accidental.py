@@ -23,3 +23,7 @@ class Accidental:
     def half_step_value(self):
         return self.__class__.HALF_STEP_VALUE
 
+    @classmethod
+    def for_note(cls, note, target_half_steps_from_c0):
+        if (note.half_steps_from_c0() + 1) == target_half_steps_from_c0:
+            return cls('sharp')
