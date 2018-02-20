@@ -6,15 +6,7 @@ from constants import HALF_STEPS_PER_OCTAVE, C0_FREQUENCY
 # A note is a tone that has a name and an octave number
 class Note(Tone):
     NAMES = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-    NEXT_NOTE_NAME = {
-        'C': 'D',
-        'D': 'E',
-        'E': 'F',
-        'F': 'G',
-        'G': 'A',
-        'A': 'B',
-        'B': 'C',
-    }
+
     HALF_STEPS_FROM_C = {
         'C': 0,
         'D': 2,
