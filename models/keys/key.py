@@ -1,5 +1,5 @@
 from . import MinorKey, MajorKey
-from ..note import Note
+from models.note import Note
 
 class Key:
     def __new__(cls, minor=False):

@@ -1,4 +1,4 @@
-from tone import Tone
+from models.tone import Tone
 from accidentals.accidental import Accidental
 from constants import HALF_STEPS_PER_OCTAVE, C0_FREQUENCY
 
