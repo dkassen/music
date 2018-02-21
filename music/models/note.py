@@ -1,5 +1,5 @@
 from models.tone import Tone
-from accidentals.accidental import Accidental
+from models.accidentals.accidental import Accidental
 from constants import HALF_STEPS_PER_OCTAVE, C0_FREQUENCY
 
 
@@ -18,12 +18,12 @@ class Note(Tone):
     }
 
     def __init__(self, name, accidental=None, octave_number=0):
-        self._name = name
+        self._name = name.upper()
         self._accidental = accidental or Accidental('natural')
         self._octave_number = octave_number
         self._validate()
         self._set_frequency()
-        super().__init__(self, self._frequency)
+        super().__init__(self._frequency)
 
     @property
     def name(self):
@@ -57,7 +57,7 @@ class Note(Tone):
         return 2 ** (self.half_steps_from_c0() / HALF_STEPS_PER_OCTAVE)
 
     def half_steps_from_c0(self):
-        return self._octave_half_steps() + self._half_steps_from_c() + self._accidental.half_step_value()
+        return self._octave_half_steps() + self._half_steps_from_c() + self._accidental.half_step_value
 
     def _octave_half_steps(self):
         return self._octave_number * HALF_STEPS_PER_OCTAVE
@@ -80,4 +80,4 @@ class Note(Tone):
 
     def _validate_name(self):
         if self._name not in self.__class__.NAMES:
-            raise ValueError(f"Name not valid, expected one of {self.__class__.NAMES.join(', ')}")
+            raise ValueError(f"Name not valid, expected one of {', '.join(self.__class__.NAMES)}")

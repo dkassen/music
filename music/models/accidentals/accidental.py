@@ -1,6 +1,6 @@
 class Accidental:
     def __new__(cls, name):
-        from accidentals import Flat, Natural, Sharp
+        from models.accidentals import Flat, Natural, Sharp
 
         if cls is Accidental:
             name = name.lower()
