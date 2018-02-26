@@ -1,6 +1,6 @@
 class Accidental:
     def __new__(cls, name):
-        from models.accidentals import Flat, Natural, Sharp
+        from ..accidentals import Flat, Natural, Sharp
 
         if cls is Accidental:
             name = name.lower()
@@ -23,7 +23,11 @@ class Accidental:
     def half_step_value(self):
         return self.__class__.HALF_STEP_VALUE
 
-    @classmethod
-    def for_note(cls, note, target_half_steps_from_c0):
+    @staticmethod
+    def for_note(note, target_half_steps_from_c0):
         if (note.half_steps_from_c0() + 1) == target_half_steps_from_c0:
-            return cls('sharp')
+            return Accidental('sharp')
+        elif (note.half_steps_from_c0() - 1) == target_half_steps_from_c0:
+            return Accidental('flat')
+        else:
+            return Accidental('natural')
